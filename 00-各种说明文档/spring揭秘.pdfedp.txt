@@ -1,0 +1,1012 @@
+                                                     Spring 之崛起
+                                               1.1                1
+
+
+
+
+         第1章                                                           2
+
+                   Spring框架的由来                                         3
+
+                                                                       4
+   本章内容
+                                                                       5
+    Spring之崛起
+    Spring框架概述
+                                                                       6
+    Spring大观园
+
+    J2EE作为一种企业级应用开发平台，其优异表现是我们有目共睹的。但纵使是最为强大的军队，
+                                                                       7
+如果没有一个好的指挥官，不知道如何发挥这支军队的强大战斗力，那这支军队也不可能取得太多辉
+煌的战果。     在J2EE平台的一些早期实践中，       就出现了对J2EE平台所提供的各项服务的滥用，  将基于J2EE
+平台的企业级开发带入了窘境。                                                         8
+    Spring是于2003年兴起的一个轻量级的Java开发框架，由Rod Johnson在其著作Expert One-On-One
+J2EE Development and Design中阐述的部分理念和原型衍生而来。它的最初目的主要是为了简化Java EE
+                                                                       9
+的企业级应用开发，相对于过去EJB ① 时代重量级的企业应用开发而言，Spring框架的出现为曾经阴霾
+的天空带来了灿烂的阳光。
+                                                                       10
+      Spring 之崛起
+1.1
+  在中世纪的欧洲，当重装骑兵所向披靡时，哪国的军队中如果没有一支重装骑兵真的会让人笑话
+                                                                       11
+的，按照电影《大腕》里的一句话说“你都不好意思跟人打招呼”。应该说，在当时的历史/军事环境
+下，重装骑兵在军队中确实发挥了不可或缺的作用。有时候，一次关键时刻的重装骑兵冲锋就可以奠
+                                                                       12
+定战局的胜利。但是，时过境迁，历史的车轮一直在向前缓缓行进，重装骑兵头上的光环也随之渐趋
+黯淡，其缺点开始显露无遗。
+   重装骑兵代价高昂。一名重装骑兵的装备花费几乎能够武装一小队轻步兵，对于财力不够雄
+                                                                       13
+    厚的国家来说，维持一支常备的重装骑兵队伍绝非易事。实际上，对于财力雄厚的大国（相
+    当于IT界的IBM、微软）来说，为了减轻财政上的压力，通常也是将这部分花销尽量摊派给贵族。
+                                                                       14
+   兵种自身限制太多。沉重的盔甲以及一整套装备使得重装骑兵的机动性和灵活性大打折扣，
+    在正式投入战斗之前，重装骑兵需要很长时间的列装和部署，对于瞬息万变的战场形势来说，
+    某些情况下，这等同于自杀。
+                                                                       15
+   发挥作用的场景有限。纵使各翼军队能够掩护重装骑兵完成部署，但如果战场地形不适合重
+    装骑兵冲锋，那也就无法让他们大显身手，前期的准备或者战斗掩护就更是得不偿失。
+                                                                       16
+  当新的战术和兵种能够更加高效地完成作战任务时，依然主打重装骑兵的军队能取得什么样的战
+
+  ① 此后提到的EJB通常都是指1.x和2.x版本的EJB，因为EJB3现在已经受Spring框架的影响，也主打基于POJO的轻量
+                                                                       17
+      级应用解决方案了。
+      Spring 的 IoC 容器
+ 2
+
+果，轻骑兵的出现已经给了我们一个明确的答案。
+     当然，我的本意不在讲战争史，我只是想让大家看到，在早期的J2EE平台开发实践过程中，盲目
+地推崇某一“兵种”，比如EJB，将会招致怎么样的一种命运。历史是相似的，不管是军事发展史，还
+是我们的J2EE平台企业级应用开发史。       君不见当年言必称EJB的盛况吗？这跟中世纪欧洲重装骑兵的显
+赫是何等地相似。但任何技术或者事物都有其适用的场景，如果用在了不合适的场景下，我们就不得
+不为滥用而付出相应的代价。EJB是使用J2EE平台各项服务的一种方式，但不是唯一的方式。对于分布
+式系统来说，      使用EJB在某些方面确实可以带给我们很大的收益，       但并不是所有的J2EE应用都要用于分
+布式环境。如果不分场景地滥用EJB，J2EE平台上的这支“重装骑兵”的局限性自然会暴露出来。
+      使用EJB，通常也就意味着需要引入拥有EJB Container的应用服务器（J2EE Application Server）
+        的支持，比如BEA的WebLogic或者IBM的WebSphere，而这往往也就意味着高昂的授权费用。
+        虽然开源的JBoss等应用服务器也提供对EJB Container的支持，但对于商业软件来说，出于产
+        品质量和售后服务等因素考虑，     商业产品WebLogic或者WebSphere依然是最佳选择。   这跟当年
+        欧洲崇尚重装骑兵相似，都免不了要付出高昂的代价。
+      说到重装骑兵列装和部署的复杂和迟缓，使用EJB开发的企业级应用也存在同样的问题。使用
+        EJB使得应用程序的部署和测试都更加困难，复杂的类加载机制、复杂的部署描述符、过长的
+        开发部署周期等，无疑都增加了开发EJB应用程序的难度。
+      重装骑兵需要合适的战机才能发挥其最大作用，EJB也是如此。只有在分布式的场景中，EJB
+        才会带给我们最大的益处。但是，当大家在崇拜EJB的狂热氛围之下，不分场景地滥用它时，
+        后果自然可想而知了。要么是开发过程缓慢，无法如期交付；要么就是程序交付后性能极差，
+        很难满足客户需求。
+     当然我们还可以列举更多，但这些已经可以说明问题了。应该说，基于EJB的应用开发实践并非一
+无是处。尽管其本身在合适的场景下也或多或少地存在一些问题，但不分场景地滥用它，才会导致基于
+EJB的应用开发声名狼藉。历史的车轮时刻都没有停下，当人们意识到大部分J2EE应用开发初期甚至整
+个生命周期内都不需要牵扯到分布式架构时，J2EE平台上对应EJB而生的“轻骑兵”自然也该千呼万唤
+始出来了——倡导轻量级应用解决方案的Spring，就承担了这一历史角色！
+     Spring倡导一切从实际出发，以实用的态度来选择适合当前开发场景的解决方案。如果不需要用到
+分布式架构，那就没有必要使用EJB之类的“牛刀”。而大多数的J2EE应用也确实不需要在开发初期或
+者整个生命周期内引入任何分布式架构。         这个时候， 采用敏捷、    轻量级的开发方案可以收到更好的效果。
+Spring所倡导的J2EE轻量级应用解决方案顺应天时，自然得以快速崛起……
+
+      注意 没有任何一种解决方案是普遍适用的，只有适用于特定场景的解决方案，脱离具体场
+      景来讨论任何解决方案都是脱离实际的表现。Spring并不是要替代EJB，而是给出EJB之外的
+      另一种方案而已，  甚至于二者可以是互补的。如果某一场景下EJB依然是最为合适的解决方案，
+      那么我们可以毫不迟疑地使用它；同样地，对于Spring的使用也应该考虑到具体的应用场景，
+      这一点应该是需要我们始终牢记的。当古代的重装骑兵以坦克的形式重新跃上历史舞台时，
+      Java平台上会不会也上演同样的一幕呢？我们拭目以待。
+
+
+      Spring 框架概述
+1.2
+     大气层的包裹为地球创造了适合人类生存的环境。当地球上的资源足够满足人类生存需要时，我
+                                                                  Spring 框架概述
+                                                            1.2                 3
+
+们没必要急于开展星际移民计划，那样造成的人力物力开销会很大。当年盲目倡导EJB架构，就好像
+从一开始就不顾实际情况而开展星际移民计划，向其他星球移民当然是个好想法，但是否立即有必要
+如此大动干戈呢？对于大多数的应用程序来说，EJB架构是没有必要的。我们只需要一个大气层包裹
+                                                                                    2
+的、环境适宜的地球即可。Spring框架所倡导的基于POJO（Plain Old Java Object，简单Java对象）的
+轻量级开发理念，就是从实际出发，立足于最基础的POJO（就好像我们的地球）。为了能够让这些
+基础的POJO构建出健壮而强大的应用，Spring框架就好像那包裹地球的大气层一样，为构筑应用的                                    3
+POJO提供了各种服务，进而创造了一套适宜用POJO进行轻量级开发的环境。
+   从广义上讲，不管Spring框架自发布到现在经过了多少次的版本更迭（从1.x到2.0再到2.5），其本
+                                                                                    4
+质是始终不变的，都是为了提供各种服务，以帮助我们简化基于POJO的Java应用程序开发。Spring框
+架为POJO提供的各种服务共同组成了Spring的生命之树，如图1-1所示。
+                                                                                    5
+                                  ORM
+                                Hibernate
+                                 iBATIS
+                                                                                    6
+                                   JPA
+               DAO               Toplink                          Web
+                                   JDO
+           Spring JDBC                        JEE服务集成         Spring MVC
+                                                                                    7
+            事务管理                  ……              JMX
+                                                           Spring Portlet MVC
+                                                  JMS
+                                                            其他Web框架集成
+                                                  JCA
+                                                           各种视图类型的集成
+                                                  EJB
+                                                                                    8
+                            AOP                                   ……
+                                                Remoting
+                         Spring AOP             JavaMail
+                         AspectJ集成                ……
+
+                                                                                    9
+
+                                                                                    10
+                                                  Core
+                                                IoC容器
+                                            Framework工具类
+                                                                                    11
+
+                                                                                    12
+
+                                                                                    13
+                              图1-1 Spring框架总体结构
+
+     组成整个Spring框架的各种服务实现被划分到了多个相互独立却又相互依赖的模块当中。正如我
+                                                                                    14
+们在图1-1中所见到的那样，     这些模块组成了Spring生命之树的枝和干，说白了也就是它们组成了Spring
+框架的核心骨架。抓住了这副骨架，也就抓住了Spring框架的学习主线。
+                                                                                    15
+     整个Spring框架构建在Core核心模块之上，它是整个框架的基础。在该模块中，Spring为我们提供
+了一个IoC容器（IoC Container）实现，用于帮助我们以依赖注入的方式管理对象之间的依赖关系。对
+                                                                                    16
+Spring的IoC容器的介绍将成为我们此次Spring之旅的第一站。除此之外，Core核心模块中还包括框架
+内部使用的各种工具类（如果愿意，我们也可以在框架之外使用），比如Spring的基础IO工具类等，
+这些基础工具类我们也会在合适的地方介绍。
+                                                                                    17
+       Spring 的 IoC 容器
+  4
+
+      沿着Spring生命之树往上左序遍历，我们将来到AOP模块。该模块提供了一个轻便但功能强大的
+ AOP框架，让我们可以以AOP的形式增强各POJO的能力，进而补足OOP/OOSD之缺憾。Spring的AOP
+框架符合AOP Alliance规范，采用Proxy模式构建，与IoC容器相结合，可以充分显示出Spring AOP的
+ 强大威力。我们将在了解了Spring的IoC容器的基础上，详细讲述Spring AOP这一部分。
+      继续上行，Spring框架在Core核心模块和AOP模块的基础上，为我们提供了完备的数据访问和事
+务管理的抽象和集成服务。在数据访问支持方面，Spring对JDBC API的最佳实践极大地简化了该API
+的使用。除此之外，Spring框架为各种当前业界流行的ORM产品，比如Hibernate、iBATIS、Toplink、
+JPA等提供了形式统一的集成支持。Spring框架中的事务管理抽象层是Spring AOP的最佳实践，它直接
+构建在Spring AOP的基础之上，为我们提供了编程式事务管理和声明式事务管理的完备支持。这些服
+务极大地简化了日常应用开发过程中的数据访问和事务管理工作。在学习完这两部分内容之后，相信
+读者将会有切身的体会。
+      为了简化各种Java EE服务（像JNDI、JMS以及JavaMail等）的使用，Spring框架为我们提供了针
+对这些Java EE服务的集成服务。在Spring的帮助下，这些Java EE服务现在都变得不再烦琐难用。因为
+相关的Java EE服务较多，我们将会选择合适的几种介绍Spring框架给予它们的支持。随着航空航天技
+术的发展，我们现在可以从地球上发送飞船去访问其他星球，使用Spring框架构建的基于POJO的应用
+程序如果也需要远程访问或者公开一些服务的话，Spring的Remoting框架将帮助它完成这一使命。
+Spring的Remoting框架和Spring对其他Java EE服务的集成将分别在不同的章节中介绍。
+      最后要提到的就是Web模块。在该模块中，Spring框架提供了一套自己的Web MVC框架，职责分
+ 明的角色划分让这套框架看起来十分地“醒目”。我们将为Spring的Web MVC框架单独开辟一块“领
+ 地”进行讲解。在那一部分中，读者可以充分领略Web MVC框架的魅力。Spring的Portlet MVC构建在
+ Spring Web MVC之上，延续了Spring Web MVC的一贯风格。本书不会对其做详细介绍，如果需要，
+ 可以参考文献中的有关参考书籍。                                      像Struts、
+                         Spring Web MVC并不排斥现有的其他Web框架，        WebWork
+ 以及JSF等；Spring的Web框架都为它们提供了集成支持。除此之外，像Web开发中可能牵扯的各种视
+ 图（View）技术，Spring Web框架更是给予了足够的重视。
+      就像一棵树必须依赖强大的根基才能生长繁盛一样，Spring框架内的各个模块也是如此。理论上
+ 来说，   上层的模块需要依赖下层的模块才能正常工作，             这就是为什么说这些模块是相互依赖的。      不过，
+ 近乎处于同一水平线的各个模块之间却可以认为是相互独立的，                彼此之间没什么瓜葛。  从这个角度看，
+ 这些模块之间的相互独立一说也是成立的。
+      以上就是对整个Spring框架的总体介绍。在开始愉快的Spring旅程之前，我想带大家先逛一逛
+“Spring大观园”，这样，大家就会发现即将开始的Spring之旅更加值得期待。
+
+       注意 不要只将Spring看作是一个IoC容器，也不要只将Spring与AOP挂钩，Spring提供的远比
+       这些东西要多得多。Spring不仅仅是一个简化Java EE开发的轻量级框架，它更应该是一个简化
+       任何Java应用的开发框架。如果你愿意，甚至可以在Java的三个平台上（J2SE、J2EE、J2ME）
+       应用Spring框架。即使当前的Spring框架还不支持相应平台或者相应场景的应用开发，但是只
+       要你掌握了Spring的理念和方法，同样可以让新的“Spring”在相应的场景中发挥作用。
+
+
+       Spring 大观园
+1.3
+      在1995年Java作为一门计算机语言而诞生时，有谁能够想到，短短10多年间，它已经发展成为一
+                                                                                Spring 大观园
+                                                                          1.3                5
+
+个强大的开发平台？对于Spring框架来说，历史又在重演，而且几乎毫无悬念。
+  Spring大观园中有一棵参天大树，它得以茁壮成长，主要因为它有一个好的根基，那就是Spring
+框架。在Spring框架的基础上，                                   不断涌现出一个又一个引人注目的家族成员，
+                           Spring家族人丁开始兴旺，
+                                                                                                 2
+包括：
+                               ①
+   Spring Web Flow（SWF） 。Spring Web Flow构建于Spring Web MVC框架之上，旨在简化拥
+     有复杂用户交互逻辑的Web应用程序的开发。通过Spring Web Flow的扩展支持，可以在基于                                           3
+     Spring Web MVC的Web应用程序中以更简单的方式，创建更加复杂的业务交互流程。同时，
+     Spring Web Flow还让Ajax和JSF享受一等公民待遇，所有这些将帮助我们更快更好地满足各种
+                                                                                                 4
+     用户的实际需求。
+                         ②
+   Spring Web Services 。Spring Web Services是一套采用契约优先（Contract-First）开发模式，
+
+                                                                                                 5
+     创建文档驱动（Document-driven）Web服务的Web服务开发框架。它除了对Web服务中涉及的
+     XML的映射关系管理提供了详尽的支持，还与Spring框架以及其他子项目（比如Spring
+     Security）紧密结合，帮助以更加灵活高效的方式打造Web服务应用服务。
+                                                                                                 6
+                                            ③
+   Spring Security（原来的Acegi Security） 。Spring Security由原来的Acegi Security发展而来，
+     主要为基于Spring框架的企业级应用程序提供安全解决方案。Spring Security 2.0发布后在原来
+                                                                                                 7
+     Acegi Security 1.0的基础上又添加了很多富有吸引力的特性，包括简化配置、面向RESTful请
+     求的安全认证、与Spring Web Flow和Spring Web Services等项目的良好集成等，可以说为基于
+     Spring框架的企业级应用提供了一站式的安全方面的解决方案。                                                             8
+                                                     ④
+   Spring Dynamic Modules for OSGi Service Platforms 。Spring-DM是融合了Spring框架以及OSGi
+     两家优良基因后的产物，它集Spring框架各种服务和OSGi的动态性、模块化等特性于一身，可
+                                                                                                 9
+     以帮助我们以一种全新的方式来打造新一代的企业级应用程序。SpringSource Application
+     Platform应用服务器就是构建在Spring-DM之上的。在企业级应用开发领域，Spring-DM或许会
+                                                                                                 10
+     掀起另一个浪潮。
+                 ⑤
+   Spring Batch 。当意识到企业应用中批处理业务所占的市场份额不容小觑之后，Spring Batch
+     开始浮出水面，它是构建在Spring框架之上的一套轻量级批处理开发框架，由SpringSource和
+                                                                                                 11
+     埃森哲（Accenture）合力打造。如果你还在为无法找到一款满意的开源批处理开发框架而烦
+     恼，也许Spring Batch会让你的烦恼顷刻间烟消云散。
+                                                                                                 12
+                       ⑥
+   Spring Integration 。Spring Integration面向创建基于Spring开发框架的企业集成（Enterprise
+                                                         ⑦
+     Integration）解决方案，对Enterprise Integration Patterns 一书中的企业集成模式提供支持。它
+     在现有Spring框架对企业方案集成的基础上，提出了更高层次的抽象方案，使得业务和集成逻                                                13
+     辑得以松散耦合，很好地分离了企业集成过程中的不同关注点。
+                  ⑧
+   Spring LDAP 。                                                （Template Method Pattern)
+                     Spring LDAP传承了Spring框架中应用模板方法模式
+                                                                                                 14
+   ① http://www.springframework.org/webflow。
+                                                                                                 15
+   ② http://www.springframework.org/spring-ws。
+   ③ http://static.springframework.org/spring-security/site/index.html。
+   ④ http://www.springframework.org/osgi。
+                                                                                                 16
+   ⑤ http://www.springframework.org/spring-batch。
+   ⑥ http://www.springframework.org/spring-integration。
+   ⑦ http://www.eaipatterns.com/。
+                                                                                                 17
+   ⑧ http://www.springframework.org/ldap。
+         Spring 的 IoC 容器
+  6
+
+      的优良传统，由最初的LdapTemplate发展演化而来，旨在简化LDAP相关操作。
+                  ①
+    Spring IDE 。如果读者使用Eclipse平台开发Spring应用程序，结合Spring IDE插件将会使开发
+      更加得心应手。Spring IDE以Eclipse开发平台为中心，想开发人员之所想，包含了各种实用的
+      特性，为使用Eclipse创建基于Spring的应用程序，提供了灵活而强大的开发环境。
+                      ②
+    Spring Modules 。为了避免Spring框架对各种其他项目的集成和支持造成Spring框架本身的臃
+      肿等一系列问题，Spring Modules将那些可选的工具和附加类库剥离出Spring核心框架，纳入
+      自身进行统一管理。如果在使用Spring框架开发的过程中，发现某些第三方库或工具，在核心
+      框架中不存在的话，           可以求助于Spring Modules提供的各种扩展，  包括它对ANT、  OSWorkflow、
+      Apache OJB，以及低版本的iBatis等第三方库的扩展支持。
+                        ③
+    Spring JavaConfig 。Spring框架提供的依赖注入支持，最初是使用XML表述依赖注入关系的。
+      在Spring 2.5正式提供了基于注解的依赖注入方式之前，Spring JavaConfig就为Spring框架提出
+      了一套基于注解的依赖注入解决方案，它可以看作是Spring 2.5中基于注解的依赖注入正式方
+      案之外的另一种选择。
+                        ④
+    Spring Rich Client 。与Eclipse RCP为基于SWT/JFace的GUI应用提供了一套完备的开发框架类
+      似，                                                 这就是Spring Rich Client。
+           Spring也为使用Swing进行GUI开发的应用提供了一套开发框架，
+      如果你想在开发Swing应用的过程中同时获得Spring框架的各项支持的话，那Spring Rich Client
+      正是为你而生的。
+                    ⑤
+    Spring .NET 。Spring框架在Java平台上的成功是有目共睹的，这种成功同样渗透到了.NET平
+      台，Spring .NET就是SpringSource为.NET企业开发平台量身打造的开源应用开发框架。
+                      ⑥
+    Spring BeanDoc 。Spring BeanDoc可以根据Spring应用程序使用的配置文件中的相应信息，创
+      建对应的文档和图表，帮助我们以更加直观的方式来了解Spring应用程序的整体结构。
+   这些家族成员全部以Apache Lisence Version 2.0协议发布，共同组成了Spring Projects组合。这一
+ 组合对软件开发中的各种需求提供从广度到深度的支持，极大地简化了日常开发工作。而且，因为它
+ 们都是以开源形式发布的，所以大部分软件公司都可以从中受益，可以投入更低的成本打造高质量的
+ 软件产品。
+   Spring Projects组合中的开源项目为很多软件开发人员、软件公司带来了益处，但因为是开源，所
+ 以这些项目主要靠社区来推动和发展。活跃的开发社区可以为我们带来快速的反馈和支持，但没有任
+ 何主体或个人可以保证我们所需要的反馈和支持能够及时有效地得到满足。                       鉴于这一点，   SpringSource
+（原来的Interface21，即Spring框架的“东家” 在Spring Projects组合的基础上，提供了Spring Portfolio ⑦
+                                      ）
+ 产品，SpringSource为Spring Portfolio产品中的各成员提供咨询、培训和支持服务。Spring Portfolio产
+ 品由Spring Projects组合中多个成功的企业级开源产品，以及AspectJ等Spring组织外部的优秀开源产品
+ 共同组成：
+    Spring Framework；
+
+
+   ① http://springide.org/。
+   ② https://springmodules.dev.Java.net/。
+   ③ http://www.springframework.org/Javaconfig。
+   ④ http://www.springframework.org/spring-rcp。
+   ⑤ http://www.springframework.net/。
+   ⑥ http://spring-beandoc.sourceforge.net/。
+   ⑦ Portfolio指的是证券投资组合，在这里应该是多种Spring家族相关产品的组合。
+                                                                               1.4 小结         7
+
+      Spring Security（原来的Acegi）；
+      Spring Web Flow；
+      Spring Web Services；
+                                                                                                     2
+      Spring Dynamic Modules for the OSGi Service Platform；
+      Spring Batch；
+      Pitchfork（http://www.springsource.com/pitchfork)；
+                                                                                                     3
+      AspectJ（http://www.eclipse.org/aspectj/)；
+      Spring IDE；
+                                                                                                     4
+      Spring .NET；
+      Spring LDAP；
+
+                                                                                                     5
+      Spring Rich Client；
+      Spring Integration。
+     实际上，Spring Portfolio只是SpringSource产品组合之一。为了能够为客户提供更多价值，也为了
+                                                                                                     6
+继续保持Spring家族在Java平台企业级开发中一贯的领先地位，SpringSource积极扩展，为我们带来了
+更多的企业级开发产品，像构建于Spring Dynamic Modules之上的新一代企业级Java应用服务器
+                                                                                                     7
+SpringSource Application Platform，为企业用户量身打造的SpringSource Enterprise等产品。而且，
+SpringSource 还 积 极 吸 纳 其 他 成 功 开 源 产 品 （ 包 括 Apache HTTPD ① 、 Apache Tomcat ② 、 Apache
+ActiveMQ ③ 等）的主要开发人员，以便更好地为这些开源产品的客户提供及时有效的支持服务。                                                     8
+     无论从哪一个角度看，整个Spring家族都是富有活力、积极进取的，一旦有新的开发理念或者最
+佳实践涌现，我们通常会第一时间在Spring家族中发现它们的身影。随着整个Spring平台的发展，我们
+                                                                                                     9
+会看到Spring大观园将愈发地花团锦簇、欣欣向荣。看到这么一幅宏大而美丽的景象，你或许早就热
+血沸腾，想要马上投入Spring大观园之中。不过，正像Donald J. Trump在How To Get Rich一书中所说
+                                                                                                     10
+的那样：“Before the dream lifts you into the clouds, make sure look hard at the facts on the ground.”④
+     要知道，所有的Spring家族成员全部构建于Spring框架基础之上，在我们想要往Spring这棵参天大
+树更高的地方攀爬之前，实实在在地先去了解Spring框架这一根基，才是当前的首要任务，不是吗？
+                                                                                                     11
+如果读者能够认同这些，那么现在就让我们来开始Spring框架的全景之旅吧！
+
+          小结
+1.4                                                                                                  12
+  本章首先对Spring框架得以迅速崛起的背景做了简短介绍，然后带领读者从总体上了解了Spring
+                                                                                                     13
+框架的构成。按常规思路，在了解了Spring框架的总体结构之后，就应该深入框架内部以进一步了解
+它的详细内容。但是，为了让大家对Spring框架以及构建在该框架基础之上的整个平台有所认识，本
+章最后加入了对整个Spring开发平台的总体介绍。
+                                                                                                     14
+
+                                                                                                     15
+
+                                                                                                     16
+   ① http://www.covalent.net/supportservices/apache/index.html。
+   ② http://www.covalent.net/supportservices/tomcat/index.html。
+   ③ http://www.covalent.net/supportservices/activemq/index.html。
+                                                                                                     17
+   ④ 中文大意是：“在被梦想搞得飘飘然之前，最好先让自己脚踏实地”。——编者注
+         Spring 的 IoC 容器
+ 8
+
+
+
+
+            第2章
+                           IoC的基本概念
+
+     本章内容
+      我们的理念是：让别人为你服务
+      手语，呼喊，还是心有灵犀
+      IoC的附加值
+
+
+        我们的理念是：让别人为你服务
+2.1
+     IoC是随着近年来轻量级容器（Lightweight Container)的兴起而逐渐被很多人提起的一个名词，它
+的全称为Inversion of Control，中文通常翻译为   “控制反转” 它还有一个别名叫做依赖注入
+                                                  ，              （Dependency
+Injection）。好莱坞原则“Don’t call us, we will call you.” ① 恰如其分地表达了“反转”的意味，是用
+来形容IoC最多的一句话。那么，为什么需要IoC？IoC的具体意义是什么？它到底有什么独到之处？
+让我们带着这些疑问开始我们的IoC之旅吧。
+
+       注意 本章更多的是将IoC和依赖注入看作等同的概念进行讲解。但是，在这一点上可能存在
+       不同的观点，比如Expert Spring MVC and Web Flow和Expert One-on-One J2EE without EJB等书
+       中都将依赖注入看作是IoC的一种方式。不过，本章暂且忽略这些观点，将IoC和依赖注入等同
+       看待。在读者理解了依赖注入之后，可以再结合其他资料对IoC做进一步的研究。
+
+  为了更好地阐述IoC模式的概念，我们引入以下简单场景。
+  在我经历的FX项目 ② 中，经常需要近乎实时地为客户提供外汇新闻。通常情况下，都是先从不同
+的新闻社订阅新闻来源，然后通过批处理程序定时地到指定的新闻服务器抓取最新的外汇新闻，接着
+将这些新闻存入本地数据库，最后在FX系统的前台界面显示。
+  假设我们有一个FXNewsProvider类来做以上工作，其代码如代码清单2-1所示。
+
+代码清单2-1        FXNewsProvider类的实现
+      public class FXNewsProvider
+      {
+
+
+  ① 中文大意是：“你不用找我们，我们会找你的。”——编者注
+  ② FX全称为“Foreign Exchange”，即外汇交易。FX系统通常作为交易的中间商，与上游服务商（比如花旗和莱曼
+       等各大银行）合作，为顾客提供保证金交易服务，顾客只需要交纳很少的保证金就可以进行大额的外汇交易。保
+       证金交易的杠杆可以让顾客“以小博大” 只要很少的资金，顾客就可以享受到汇率变动所带来的收益（当然，
+                        ，
+       评估方向错误也可能招致损失）
+                    。
+                                                2.1 我们的理念是：让别人为你服务     9
+
+       private IFXNewsListener newsListener;
+       private IFXNewsPersister newPersistener;
+       public void getAndPersistNews()
+       {
+         String[] newsIds = newsListener.getAvailableNewsIds();
+                                                                           2
+         if(ArrayUtils.isEmpty(newsIds))
+         {
+            return;
+                                                                           3
+         }
+
+           for(String newsId : newsIds)
+           {
+                                                                           4
+             FXNewsBean newsBean = newsListener.getNewsByPK(newsId);
+             newPersistener.persistNews(newsBean);
+             newsListener.postProcessIfNecessary(newsId);
+           }
+                                                                           5
+       }
+   }
+
+  其中，FXNewsProvider需要依赖IFXNewsListener来帮助抓取新闻内容，并依赖IFXNews-
+                                                                           6
+Persister存储抓取的新闻。
+  假设默认使用道琼斯（Dow Jones）新闻社的新闻，那么我们相应地提供了DowJonesNewsLis-
+                                                                           7
+tener和DowJonesNewsPersister两个实现。通常情况下，需要在构造函数中构造IFXNewsProvider
+依赖的这两个类（以下将这种被其他类依赖的类或对象，简称为“依赖类”、“依赖对象”），如代
+码清单2-2所示。                                                                  8
+代码清单2-2        构造IFXNewsProvider类的依赖类
+                                                                           9
+   public FXNewsProvider()
+   {
+      newsListener   = new DowJonesNewsListener();
+      newPersistener = new DowJonesNewsPersister();
+                                                                           10
+   }
+
+    看，这就是我们通常的做事方式！如果我们依赖于某个类或服务，最简单而有效的方式就是直接
+                                                                           11
+在类的构造函数中新建相应的依赖类。这就好比要装修新房，需要用家具，这个时候，根据通常解决
+对象依赖关系的做法，我们就会直接打造出需要的家具来。不过，通常都是分工明确的，所以，大多
+数情况下，我们可以去家具广场将家具买回来，然后根据需要装修布置即可。
+                                                                           12
+    不管是直接打造家具（通过new构造对象），还是去家具广场买家具（或许是通过Service-
+Locator ① 解决直接的依赖耦合），有一个共同点需要我们关注，那就是，我们都是自己主动地去获
+                                                                           13
+取依赖的对象！
+    可是回头想想，我们自己每次用到什么依赖对象都要主动地去获取，这是否真的必要？我们最终
+所要做的，其实就是直接调用依赖对象所提供的某项服务而已。只要用到这个依赖对象的时候，它能                               14
+够准备就绪，我们完全可以不管这个对象是自己找来的还是别人送过来的。对于FXNewsProvider来
+说，那就是在getAndPersistNews()方法调用newsListener的相应方法时，newsListener能够准
+                                                                           15
+备就绪就可以了。如果有人能够在我们需要时将某个依赖对象送过来，为什么还要大费周折地自己去
+折腾？
+                                                                           16
+    实际上，IoC就是为了帮助我们避免之前的“大费周折”，而提供了更加轻松简洁的方式。它的
+反转，就反转在让你从原来的事必躬亲，转变为现在的享受服务。你想啊，原来还得鞍马劳顿，什么
+
+                                                                           17
+  ① J2EE核心模式的一种，主要通过引入中间代理者消除对象间复杂的耦合关系，并统一管理分散的复杂耦合关系。
+       Spring 的 IoC 容器
+ 10
+
+东西都得自己去拿。现在是用什么，让别人直接送过来就成。所以，简单点儿说，IoC的理念就是，
+让别人为你服务！在图2-1中，也就是让IoC Service Provider来为你服务！
+
+
+
+
+                              图2-1 IoC的角色
+
+     通常情况下，    被注入对象会直接依赖于被依赖对象。       但是，  在IoC的场景中，    二者之间通过IoC Service
+Provider来打交道，所有的被注入对象和依赖对象现在由IoC Service Provider统一管理。被注入对象需要
+什么，直接跟IoC Service Provider招呼一声，后者就会把相应的被依赖对象注入到被注入对象中，从而
+达到IoC Service Provider为被注入对象服务的目的。IoC Service Provider在这里就是通常的IoC容器所充
+当的角色。从被注入对象的角度看，与之前直接寻求依赖对象相比，依赖对象的取得方式发生了反转，
+控制也从被注入对象转到了IoC Service Provider那里 ① 。
+     其实IoC就这么简单！原来是需要什么东西自己去拿，现在是需要什么东西就让别人送过来。图
+2-2以两种场景，形象地说明了使用IoC模式前后的差别。
+
+
+
+
+                           图2-2   使用IoC前后的差别
+
+  出门之前得先穿件外套吧？以前，你得自己跑到衣柜前面取出衣服这一依赖对象，然后自己穿上
+再出门。而现在，你只要跟你的“另一半”使个眼色或说一句“Honey，衣服拿来。”她就会心领神
+会地到衣柜那里为你取出衣服，然后再给你穿上。现在，你就可以出门了。（此时此刻，你心里肯定
+窃喜，“有人照顾的感觉真好！”）对你来说，到底哪种场景比较惬意，我想已经不言自明了吧？
+
+  ① 与之前其他书籍和文章讲解IoC的概念方式不同，本书这里不是从对象解耦的角度来阐述的。为了能让读者将IoC
+      与原来的对象绑定模式做一个对比，我们决定从对象绑定方式的角度来阐述IoC的概念，这样对比可以更加鲜明
+      地表现新概念与老概念的差别。
+                                                   2.2 手语，呼喊，还是心有灵犀                       11
+
+
+        手语，呼喊，还是心有灵犀
+2.2
+    “伙计，来杯啤酒！”当你来到酒吧，想要喝杯啤酒的时候，通常会直接招呼服务生，让他为你
+                                                                                               2
+送来一杯清凉解渴的啤酒。同样地，作为被注入对象，要想让IoC Service Provider为其提供服务，并
+将所需要的被依赖对象送过来，也需要通过某种方式通知对方。
+       如果你是酒吧的常客，或许你刚坐好，服务生已经将你最常喝的啤酒放到了你面前；                                                  3
+       如果你是初次或偶尔光顾，也许你坐下之后还要招呼服务生，“Waiter,Tsingdao, please.”；
+       还有一种可能，你根本就不知道哪个牌子是哪个牌子，这时，你只能打手势或干脆画出商标
+                                                                                               4
+         图来告诉服务生你到底想要什么了吧！
+     不管怎样，     你终究会找到一种方式来向服务生表达你的需求，                 以便他为你提供适当的服务。                 那么，
+                                                                                               5
+在IoC模式中，被注入对象又是通过哪些方式来通知IoC Service Provider为其提供适当服务的呢？
+                                 应该是Martin Fowler的那篇文章“Inversion of Control Containers and
+     IoC模式最权威的总结和解释，
+the Dependency Injection pattern”，其中提到了三种依赖注入的方式，即构造方法注入（constructor
+                                                                                               6
+injection）、setter方法注入（setter injection）以及接口注入（interface injection）。下面让我们详细看
+一下这三种方式的特点及其相互之间的差别。
+                                                                                               7
+2.2.1 构造方法注入
+                                                                                               8
+  顾名思义，构造方法注入，就是被注入对象可以通过在其构造方法中声明依赖对象的参数列表，
+让外部（通常是IoC容器）知道它需要哪些依赖对象。对于前面例子中的FXNewsProvider来说，只要
+声明如下构造方法（见代码清单2-3）即可支持构造方法注入。
+                                                                                               9
+代码清单2-3        FXNewsProvider构造方法定义
+
+                                                                                               10
+      public FXNewsProvider(IFXNewsListener newsListner,IFXNewsPersister newsPersister)
+      {
+         this.newsListener   = newsListner;
+         this.newPersistener = newsPersister;
+                                                                                               11
+      }
+
+  IoC Service Provider会检查被注入对象的构造方法，取得它所需要的依赖对象列表，进而为其注
+入相应的对象。同一个对象是不可能被构造两次的，因此，被注入对象的构造乃至其整个生命周期，                                                   12
+应该是由IoC Service Provider来管理的。
+  构造方法注入方式比较直观，对象被构造完成后，即进入就绪状态，可以马上使用。这就好比你
+                                                                                               13
+刚进酒吧的门，服务生已经将你喜欢的啤酒摆上了桌面一样。坐下就可马上享受一份清凉与惬意。
+
+2.2.2 setter 方法注入                                                                              14
+      对于JavaBean对象来说，通常会通过setXXX()和getXXX()方法来访问对应属性。这些setXXX()方
+法统称为setter方法，getXXX()当然就称为getter方法。通过setter方法，可以更改相应的对象属性，通
+                                                                                               15
+过getter方法，可以获得相应属性的状态。所以，当前对象只要为其依赖对象所对应的属性添加setter
+方法，就可以通过setter方法将相应的依赖对象设置到被注入对象中。以FXNewsProvider为例，添加
+                                                                                               16
+setter方法后如代码清单2-4所示。
+
+代码清单2-4        添加了setter方法声明的FXNewsProvider
+                                                                                               17
+      public class FXNewsProvider
+         Spring 的 IoC 容器
+ 12
+
+   {
+       private IFXNewsListener newsListener;
+       private IFXNewsPersister newPersistener;
+
+       public IFXNewsListener getNewsListener() {
+         return newsListener;
+       }
+       public void setNewsListener(IFXNewsListener newsListener) {
+         this.newsListener = newsListener;
+       }
+       public IFXNewsPersister getNewPersistener() {
+         return newPersistener;
+       }
+       public void setNewPersistener(IFXNewsPersister newPersistener) {
+         this.newPersistener = newPersistener;
+       }
+   }
+
+  这样，外界就可以通过调用setNewsListener和setNewPersistener方法为FXNewsProvider对
+象注入所依赖的对象了。
+  setter方法注入虽不像构造方法注入那样，让对象构造完成后即可使用，但相对来说更宽松一些，
+可以在对象构造完成后再注入。这就好比你可以到酒吧坐下后再决定要点什么啤酒，可以要百威，也
+可以要大雪，随意性比较强。如果你不急着喝，这种方式当然是最适合你的。
+
+2.2.3 接口注入
+    相对于前两种注入方式来说，接口注入没有那么简单明了。被注入对象如果想要IoC Service
+Provider为其注入依赖对象，就必须实现某个接口。这个接口提供一个方法，用来为其注入依赖对象。
+IoC Service Provider最终通过这些接口来了解应该为被注入对象注入什么依赖对象。图2-3演示了如何
+使用接口注入为FXNewsProvider注入依赖对象。
+    FXNewsProvider为了让IoC Service Provider为其注入所依赖的IFXNewsListener，首先需要实现
+IFXNewsListenerCallable接口，这个接口会声明一个injectNewsListner方法（方法名随意），
+该方法的参数，就是所依赖对象的类型。这样，InjectionServiceContainer对象，即对应的IoC
+Service Provider就可以通过这个接口方法将依赖对象注入到被注入对象FXNewsProvider当中。
+
+
+
+
+                            图2-3 使用接口注入的FXNewsProvider
+                                                  IoC 的附加值
+                                            2.3              13
+
+
+          小心 在这种情况下，实现的接口和接口中声明的方法名称都不重要。重要的是接口中声明方
+          法的参数类型，必须是“被注入对象”所依赖对象的类型。
+
+                                                                  2
+  接口注入方式最早并且使用最多的是在一个叫做Avalon的项目中，相对于前两种依赖注入方式，
+接口注入比较死板和烦琐。如果需要注入依赖对象，被注入对象就必须声明和实现另外的接口。这就
+好像你同样在酒吧点啤酒，为了让服务生理解你的意思，你就必须戴上一顶啤酒杯式的帽子（如图2-4                    3
+所示），看起来有点多此一举。
+
+                                                                  4
+
+                                                                  5
+
+                     图2-4   只想要一杯啤酒，需要这样嘛                         6
+  通常情况下，这有些让人不好接受。不过，好在这种方式也可以达到目的。
+                                                                  7
+2.2.4 三种注入方式的比较
+    接口注入。从注入方式的使用上来说，接口注入是现在不甚提倡的一种方式，基本处于“退
+      
+                                                                  8
+    役状态”。因为它强制被注入对象实现不必要的接口，带有侵入性。而构造方法注入和setter
+    方法注入则不需要如此。
+                                                                  9
+   构造方法注入。这种注入方式的优点就是，对象在构造完成之后，即已进入就绪状态，可以
+    马上使用。缺点就是，当依赖对象比较多的时候，构造方法的参数列表会比较长。而通过反
+    射构造对象的时候，对相同类型的参数的处理会比较困难，维护和使用上也比较麻烦。而且
+                                                                  10
+    在Java中，构造方法无法被继承，无法设置默认值。对于非必须的依赖处理，可能需要引入多
+    个构造方法，而参数数量的变动可能造成维护上的不便。
+                                                                  11
+               因为方法可以命名，所以setter方法注入在描述性上要比构造方法注入好一些。
+   setter方法注入。
+    另外，setter方法可以被继承，允许设置默认值，而且有良好的IDE支持。缺点当然就是对象无
+    法在构造完成后马上进入就绪状态。                                              12
+  综上所述，构造方法注入和setter方法注入因为其侵入性较弱，且易于理解和使用，所以是现在使
+用最多的注入方式；而接口注入因为侵入性较强，近年来已经不流行了。
+                                                                  13
+          IoC 的附加值
+2.3
+                                                                  14
+  从主动获取依赖关系的方式转向IoC方式，不只是一个方向上的改变，简单的转变背后实际上蕴
+藏着更多的玄机。要说IoC模式能带给我们什么好处，可能各种资料或书籍中已经罗列很多了。比如
+不会对业务对象构成很强的侵入性，使用IoC后，对象具有更好的可测试性、可重用性和可扩展性，                     15
+等等。不过，泛泛而谈可能无法真正地让你深刻理解IoC模式带来的诸多好处，所以，还是让我们从
+具体的示例入手，来一探究竟吧。
+                                                                  16
+  对于前面例子中的FXNewsProvider来说，在使用IoC重构之前，如果没有其他需求或变动，不光
+看起来，用起来也是没有问题的。但是，当系统中需要追加逻辑以处理另一家新闻社的新闻来源时，
+                                                                  17
+问题就来了。
+          Spring 的 IoC 容器
+ 14
+
+  突然有一天，客户告诉你，我们又搞定一家新闻社，现在可以使用他们的新闻服务了，这家新闻
+社叫MarketWin24。这个时候，你该如何处理呢？首先，毫无疑问地，应该先根据MarketWin24的服务
+接口提供一个MarketWin24NewsListener实现，用来接收新闻；其次，因为都是相同的数据访问逻辑，
+所以原来的DowJonesNewsPersister可以重用，我们先放在一边不管。最后，就主要是业务处理对象
+FXNewsProvider了。因为我们之前没有用IoC，所以，现在的对象跟DowJonesNewsListener是绑定
+的，我们无法重用这个类了，不是吗？为了解决问题，我们可能要重新实现一个继承自
+FXNewsProvider的MarketWin24NewsProvider，或者干脆重新写一个类似的功能。
+  而使用IoC后，面对同样的需求，我们却完全可以不做任何改动，就直接使用FXNewsProvider。
+因为不管是DowJones还是MarketWin24，对于我们的系统来说，处理逻辑实际上应该是一样的：根据
+各个公司的连接接口取得新闻，然后将取得的新闻存入数据库。因此，我们只要根据MarketWin24的
+新闻服务接口，为MarketWin24的FXNewsProvider提供相应的MarketWin24NewsListener注入就可
+以了，见代码清单2-5。
+
+代码清单2-5        构建在IoC之上可重用的FXNewsProvider使用演示
+   FXNewsProvider dowJonesNewsProvider = ➥
+   new FXNewsProvider(new DowJonesNewsListener(),new DowJonesNewsPersister());
+   ...
+   FXNewsPrivider marketWin24NewsProvider = ➥
+   new FXNewsProvider(new MarketWin24NewsListener(),new DowJonesNewsPersister());
+   ...
+
+   看！使用IoC之后，FXNewsProvider可以重用，而不必因为添加新闻来源去重新实现新的
+FXNewsProvider。实际上，只需要给出特定的IFXNewsListener实现即可。
+  随着开源项目的成功，TDD（Test Driven Developement ，测试驱动开发）已经成为越来越受重视
+的一种开发方式。因为保证业务对象拥有良好的可测试性，可以为最终交付高质量的软件奠定良好的
+基础，同时也拉起了产品质量的第一道安全网。所以对于软件开发来说，设计开发可测试性良好的业
+务对象是至关重要的。而IoC模式可以让我们更容易达到这个目的。比如，使用IoC模式后，为了测试
+FXNewsProvider，我们可以根据测试的需求，提供一个MockNewsListener给FXNewsProvider。在
+此之前，我们无法将对DowJonesNewsListener的依赖排除在外，从而导致难以开展单元测试。而现
+在，单元测试则可以毫无牵绊地进行，代码清单2-6演示了测试取得新闻失败的情形。
+
+代码清单2-6        测试FXNewsProvider类的相关定义
+      测试新闻取得失败的MockNewsListner定义
+      public class MockNewsListener implements IFXNewsListener
+      {
+         public String[] getAvailableNewsIds() {
+           throw new FXNewsRetrieveFailureException();
+         }
+         public FXNewsBean getNewsByPK(String newsId) {
+           // TODO
+           return null;
+         }
+         public void postProcessIfNecessary(String newsId) {
+           // TODO
+         }
+      }
+      相应的FXNewsProvider的单元测试类
+                                                                            2.4 小结        15
+
+      public class FXNewsProviderTest extends TestCase {
+         private FXNewsProvider newsProvider;
+
+          @Override
+                                                                                                 2
+          protected void setUp() throws Exception {
+            super.setUp();
+            newsProvider = new FXNewsProvider(new MockNewsListener(),new MockNewsPersister());
+                                                                                                 3
+          }
+          @Override
+          protected void tearDown() throws Exception {
+            super.tearDown();
+                                                                                                 4
+            newsProvider = null;
+          }
+          public void testGetAndPersistNewsWithoutResourceAvailable()
+                                                                                                 5
+          {
+            try
+            {
+                                                                                                 6
+               newsProvider.getAndPersistNews();
+               fail("Since MockNewsListener has no news support, ➥
+               we should fail to get above.");
+            }
+                                                                                                 7
+            catch(FXNewsRetrieveFailureException e)
+            {
+               //……
+                                                                                                 8
+            }
+          }
+      }
+                                                                                                 9
+  由此可见，相关资料或书籍提到IoC总会赞不绝口，并不是没有原因的。如果你还心存疑虑，那
+么自己去验证一下吧！说不定你还可以收获更多。毕竟，实践出真知嘛。
+                                                                                                 10
+  如果要用一句话来概括IoC可以带给我们什么，那么我希望是，IoC是一种可以帮助我们解耦各业
+务对象间依赖关系的对象绑定方式！
+
+                                                                                                 11
+          小结
+2.4
+  本章主要介绍了IoC或者说依赖注入的概念，讨论了几种基本的依赖注入方式。还与大家一起探
+                                                                                                 12
+索并验证了IoC所带给我们的部分“附加值”。所以，现在大家应该对IoC或者说依赖注入有了最基本
+认识。下一章，我们将一起去更深入地了解IoC场景中的重要角色，即IoC Service Provider。
+                                                                                                 13
+
+                                                                                                 14
+
+                                                                                                 15
+
+                                                                                                 16
+
+                                                                                                 17
+          Spring 的 IoC 容器
+ 16
+
+
+
+
+      第3章
+                    掌管大局的IoC Service Provider
+
+   本章内容
+    IoC Service Provider的职责
+    运筹帷幄的秘密——IoC Service Provider如何管理对象间的依赖关系
+
+   虽然业务对象可以通过IoC方式声明相应的依赖，但是最终仍然需要通过某种角色或者服务将这
+些相互依赖的对象绑定到一起，而IoC Service Provider就对应IoC场景中的这一角色。
+   IoC Service Provider在这里是一个抽象出来的概念，它可以指代任何将IoC场景中的业务对象绑定
+到一起的实现方式。它可以是一段代码，也可以是一组相关的类，甚至可以是比较通用的IoC框架或
+者IoC容器实现。比如，可以通过以下代码（见代码清单3-1）绑定与新闻相关的对象。
+代码清单3-1        FXNewsProvider相关依赖绑定代码
+      IFXNewsListener newsListener = new DowJonesNewsListener();
+      IFXNewsPersister newsPersister = new DowJonesNewsPersister();
+      FXNewsProvider newsProvider = new FXNewsProvider(newsListener,newsPersister);
+      newsProvider.getAndPersistNews();
+   这段代码就可以认为是这个场景中的IoC Service Provider，只不过比较简单，而且目的也过于单
+一罢了。 要将系统中几十、几百甚至数以千计的业务对象绑定到一起，          采用这种方式显然是不切实际的。
+通用性暂且不提，单单是写这些绑定代码也会是一种很糟糕的体验。不过，好在现在许多开源产品通过
+各种方式为我们做了这部分工作。 所以，目前来看，     我们只需要使用这些产品提供的服务就可以了。    Spring
+的IoC容器就是一个提供依赖注入服务的IoC Service Provider。
+
+         IoC Service Provider 的职责
+3.1
+  IoC Service Provider的职责相对来说比较简单，主要有两个：业务对象的构建管理和业务对象间
+的依赖绑定。
+    业务对象的构建管理。在IoC场景中，业务对象无需关心所依赖的对象如何构建如何取得，但
+     这部分工作始终需要有人来做。所以，IoC Service Provider需要将对象的构建逻辑从客户端对
+       ①
+     象 那里剥离出来，以免这部分逻辑污染业务对象的实现。
+    业务对象间的依赖绑定。对于IoC Service Provider来说，这个职责是最艰巨也是最重要的，这
+     是它的最终使命之所在。如果不能完成这个职责，那么，无论业务对象如何的“呼喊”                     ，也不
+     会得到依赖对象的任何响应         （最常见的倒是会收到一个NullPointerException） IoC Service
+                                                           。
+                                      以及各个业务对象间可以识别的依赖关系，
+     Provider通过结合之前构建和管理的所有业务对象，
+
+  ① 这里指代使用某个对象或者某种服务的对象。如果对象A需要引用对象B，那么A就是B的客户端对象，而不管A
+       处于Service层还是数据访问层。
+          3.2 运筹帷幄的秘密——IoC Service Provider 如何管理对象间的依赖关系                                   17
+
+        将这些对象所依赖的对象注入绑定，从而保证每个业务对象在使用的时候，可以处于就绪状
+        态。
+
+        运筹帷幄的秘密——IoC Service Provider 如何管理对象间的
+3.2                                                                                             2
+        依赖关系
+                                                                                                3
+  前面我们说过，被注入对象可以通过多种方式通知IoC Service Provider为其注入相应依赖。但问
+题在于，收到通知的IoC Service Provider是否就一定能够完全领会被注入对象的意图，并及时有效地
+为其提供想要的依赖呢？有些时候，事情可能并非像我们所想象的那样理所当然。
+                                                                                                4
+  还是拿酒吧的例子说事儿，不管是常客还是初次光顾，你都可以点自己需要的饮料，以任何方式
+通知服务生都可以。        要是侍者经验老道，   你需要的任何饮品他都知道如何为你调制并提供给你。可是，
+                                                                                                5
+如果服务生刚入行又会如何呢？当他连啤酒、鸡尾酒都分不清的时候，你能指望他及时地将你需要的
+饮品端上来吗？
+  服务生最终必须知道顾客点的饮品与库存饮品的对应关系，才能为顾客端上适当的饮品。对于为                                                    6
+被注入对象提供依赖注入的IoC Service Provider来说，它也同样需要知道自己所管理和掌握的被注入
+对象和依赖对象之间的对应关系。
+                                                                                                7
+  IoC Service Provider不是人类，也就不能像酒吧服务生那样通过大脑来记忆和存储所有的相关信
+息。所以，它需要寻求其他方式来记录诸多对象之间的对应关系。比如：
+                                                                                                8
+    它可以通过最基本的文本文件来记录被注入对象和其依赖对象之间的对应关系；
+    它也可以通过描述性较强的XML文件格式来记录对应信息；
+    它还可以通过编写代码的方式来注册这些对应信息；
+                                                                                                9
+    甚至，如果愿意，它也可以通过语音方式来记录对象间的依赖注入关系（“嗨，它要一个这
+     种类型的对象，拿这个给它”）。
+                                                                                                10
+  那么，实际情况下，各种具体的IoC Service Provider实现又是通过哪些方式来记录“服务信息”
+的呢？
+  我们可以归纳一下，当前流行的IoC Service Provider产品使用的注册对象管理信息的方式主要有                                         11
+以下几种。
+
+3.2.1 直接编码方式                                                                                    12
+                                                                    ①
+  当前大部分的IoC容器都应该支持直接编码方式，比如PicoContainer 、Spring、Avalon等。在容
+器启动之前，我们就可以通过程序编码的方式将被注入对象和依赖对象注册到容器中，并明确它们相                                                    13
+互之间的依赖注入关系。代码清单3-2中的伪代码演示了这样一个过程。
+代码清单3-2        直接编码方式管理对象间的依赖注入关系                                                               14
+      IoContainer container = ...;
+      container.register(FXNewsProvider.class,new FXNewsProvider());
+      container.register(IFXNewsListener.class,new DowJonesNewsListener());
+                                                                                                15
+      ...
+      FXNewsProvider newsProvider = (FXNewsProvider)container.get(FXNewsProvider.class);
+      newProvider.getAndPersistNews();
+                                                                                                16
+  通过为相应的类指定对应的具体实例，可以告知IoC容器，当我们要这种类型的对象实例时，请
+将容器中注册的、对应的那个具体实例返回给我们。
+
+                                                                                                17
+  ① www.picocontainer.org。
+          Spring 的 IoC 容器
+ 18
+
+  如果是接口注入，可能伪代码看起来要多一些。不过，道理上是一样的，只不过除了注册相应对
+象，还要将“注入标志接口”与相应的依赖对象绑定一下，才能让容器最终知道是一个什么样的对应
+关系，如代码清单3-3所演示的那样。
+代码清单3-3        直接编码形式管理基于接口注入的依赖注入关系
+      IoContainer container = ...;
+      container.register(FXNewsProvider.class,new FXNewsProvider());
+      container.register(IFXNewsListener.class,new DowJonesNewsListener());
+      ...
+      container.bind(IFXNewsListenerCallable.class, container.get(IFXNewsListener.class));
+      ...
+      FXNewsProvider newsProvider = (FXNewsProvider)container.get(FXNewsProvider.class);
+      newProvider.getAndPersistNews();
+
+  通过bind方法将“被注入对象”（由IFXNewsListenerCallable接口添加标志）所依赖的对象，
+绑定为容器中注册过的IFXNewsListener类型的对象实例。容器在返回FXNewsProvider对象实例之
+前，会根据这个绑定信息，将IFXNewsListener注册到容器中的对象实例注入到“被注入对象”——
+FXNewsProvider中，并最终返回已经组装完毕的FXNewsProvider对象。
+  所以，通过程序编码让最终的IoC Service Provider（也就是各个IoC框架或者容器实现）得以知晓
+服务的“奥义”，应该是管理依赖绑定关系的最基本方式。
+
+3.2.2 配置文件方式
+  这是一种较为普遍的依赖注入关系管理方式。像普通文本文件、properties文件、XML文件等，都
+可以成为管理依赖注入关系的载体。不过，最为常见的，还是通过XML文件来管理对象注册和对象间
+依赖关系，比如Spring IoC容器和在PicoContainer基础上扩展的NanoContainer，都是采用XML文件来
+管理和保存依赖注入信息的。对于我们例子中的FXNewsProvider来说，也可以通过Spring配置文件的
+方式（见代码清单3-4）来配置和管理各个对象间的依赖关系。
+代码清单3-4        通过Spring的配置方式来管理FXNewsProvider的依赖注入关系
+      <bean id="newsProvider" class="..FXNewsProvider">
+         <property name="newsListener">
+           <ref bean="djNewsListener"/>
+         </property>
+         <property name="newPersistener">
+           <ref bean="djNewsPersister"/>
+         </property>
+      </bean>
+
+      <bean id="djNewsListener"
+         class="..impl.DowJonesNewsListener">
+      </bean>
+      <bean id="djNewsPersister"
+         class="..impl.DowJonesNewsPersister">
+      </bean>
+
+  最后，我们就可以像代码清单3-5所示的那样，通过“newsProvider”这个名字，从容器中取得
+已经组装好的FXNewsProvider并直接使用。
+代码清单3-5        从读取配置文件完成对象组装的容器中获取FXNewsProvider并使用
+      ...
+      container.readConfigurationFiles(...);
+      FXNewsProvider newsProvider = (FXNewsProvider)container.getBean("newsProvider");
+      newsProvider.getAndPersistNews();
+                                                                           3.3 小结     19
+
+3.2.3 元数据方式
+    这种方式的代表实现是Google Guice，这是Bob Lee在Java 5的注解和Generic的基础上开发的一套
+IoC框架。我们可以直接在类中使用元数据信息来标注各个对象之间的依赖关系，然后由Guice框架根
+                                                                                           2
+据这些注解所提供的信息将这些对象组装后，交给客户端对象使用。代码清单3-6演示了使用Guice的
+相应注解标注后的FXNewsProvider定义。
+                                                                                           3
+代码清单3-6        使用Guice的注解标注依赖关系后的FXNewsProvider定义
+      public class FXNewsProvider
+                                                                                           4
+      {
+         private IFXNewsListener newsListener;
+         private IFXNewsPersister newPersistener;
+         @Inject
+                                                                                           5
+         public FXNewsProvider(IFXNewsListener listener,IFXNewsPersister persister)
+         {
+           this.newsListener   = listener;
+           this.newPersistener = persister;
+                                                                                           6
+         }
+         ...
+      }
+
+                                                                                           7
+  通过@Inject，我们指明需要IoC Service Provider通过构造方法注入方式，为FXNewsProvider注入
+其所依赖的对象。至于余下的依赖相关信息，在Guice中是由相应的Module来提供的，代码清单3-7给
+出了FXNewsProvider所使用的Module实现。
+                                                                                           8
+代码清单3-7        FXNewsProvider所使用的Module实现
+      public class NewsBindingModule extends AbstractModule
+                                                                                           9
+      {
+         @Override
+         protected void configure() {
+           bind(IFXNewsListener.class) ➥
+                                                                                           10
+           .to(DowJonesNewsListener.class).in(Scopes.SINGLETON);
+           bind(IFXNewsPersister.class) ➥
+           .to(DowJonesNewsPersister.class).in(Scopes.SINGLETON);
+                                                                                           11
+         }
+      }
+
+  通过Module指定进一步的依赖注入相关信息之后，我们就可以直接从Guice那里取得最终已经注
+                                                                                           12
+入完毕，并直接可用的对象了（见代码清单3-8）。
+代码清单3-8        从Guice获取并使用最终绑定完成的FXNewsProvider
+                                                                                           13
+      Injector injector = Guice.createInjector(new NewsBindingModule());
+      FXNewsProvider newsProvider = injector.getInstance(FXNewsProvider.class);
+      newsProvider.getAndPersistNews();
+                                                                                           14
+  当然，注解最终也要通过代码处理来确定最终的注入关系，从这点儿来说，注解方式可以算作编
+码方式的一种特殊情况。
+                                                                                           15
+        小结
+3.3
+    本章就IoC场景中的主要角色IoC Service Provider给出了言简意赅的介绍。讨论了IoC Service                            16
+Provider的基本职责，以及它常用的几种依赖关系管理方式。
+    应该说，IoC Service Provider只是为了简化概念而提出的一个一般性的概念。下一章，我们将由
+                                                                                           17
+一般到特殊，一起深入了解一个特定的IoC Service Provider实现产品，即Spring提供的IoC容器。
+

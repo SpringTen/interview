@@ -1,0 +1,43 @@
+4/18
+这周主要学习springcloud框架相关知识，包括但不限于springboot，eureka，Hystrix，Ribbon等。在本机上搭建双活管理监控平台，了解其主要功能。
+下周计划：熟悉双活管理平台，学习docker
+
+4/26
+熟悉双活管理监控系统，了解其相关组件；学习一些设计模式，包括策略模式、工厂模式、单例模式、适配器模式等；下周主要任务：学习一些高并发知识
+
+5/10
+了解zookeeper，Cap，Base理论，从网上找了一些论文进行研究，学习高并发相关知识。下周主要任务：继续对双活管理平台项目加深了解，熟悉相关原理。
+
+5/17
+这周主要工作：对秒杀系统做了简单的调研，准备设计一个简单的秒杀系统；了解需求，确定技术选型尽量向大公司的选择上靠拢；
+	初步暂定选择：spring boot作为开发框架，redis作为缓存工具，spring事务，md5加密，MySQL做数据存储，异步事件中间件选择rabbitmq，前端选择jQuery+bootstrap；
+	下周计划：计划下周和下下周两周内完成开发。
+5/23
+这周主要工作：秒杀系统的数据库设计，Dao及Service层开发。
+
+6/12
+这周主要工作：阅读双活数据中心相关文献，查阅资料，在张旭刚老师的指导下完成了开题报告，题目为：双活数据中心架构及监控管理系统的研究与实现。
+
+6/20
+这周主要工作，撰写开题报告，完成初稿后，在张老师指导下做了一些修改，现在基本定稿。
+
+6/27
+这周主要工作，编写开题报告，第二次修改开题报告，准备开题ppt，材料归档，准备开题答辩。
+
+
+https://www.bilibili.com/video/av9876107?from=search&seid=4009675745175607324
+
+https://www.bilibili.com/video/av33595294
+
+https://www.bilibili.com/video/av6538245?p=2
+
+https://www.bilibili.com/video/av15390641?from=search&seid=17628002304145542136
+
+"C:\My Program\JAVA\rabbitMQ\RabbitMQ Server\rabbitmq_server-3.7.12\sbin\rabbitmq-plugins.bat" enable rabbitmq_management
+
+
+
+基于知识图谱和深度神经网络的个性化推荐研究
+基于用户画像的推荐系统研究
+基于知识图谱和协同过滤的个性化推荐系统的设计与实现
+基于协同过滤的个性化推荐系统的设计与实现
